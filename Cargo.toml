@@ -7,6 +7,9 @@ edition = "2024"
 cxx = "1.0.95"
 cxx-qt = "0.8"
 cxx-qt-lib = { version="0.8", features = ["qt_full"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json5 = "0.2"
+hound = "3.5"
 
 [build-dependencies]
 # The link_qt_object_files feature is required for statically linking Qt 6.
