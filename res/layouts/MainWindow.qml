@@ -1,6 +1,11 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.21
+import QtQuick.Dialogs
+import QtQuick.Layouts
+
+import dog.eden.coyote_labeler 1.0
+import "MainPages"
 
 ApplicationWindow {
     id: root
@@ -10,17 +15,79 @@ ApplicationWindow {
     visible: true
     color: palette.window
 
+    property MainWindow mainWindow: MainWindow
+    {
+
+    }
+
+    MessageDialog
+    {
+        id: projectOpenFailMessage
+        buttons: MessageDialog.Ok
+        text: qsTr("Failed to load project file. Data might be corrupt.")
+    }
+
+    MessageDialog
+    {
+        id: unsavedChangesMessage
+        buttons: MessageDialog.Save | MessageDialog.Discard | MessageDialog.Cancel
+        text: qsTr("This project has been modified.\nDo you want to save your changes?")
+
+        onButtonClicked: function(button, role)
+        {
+            switch(button)
+            {
+                case MessageDialog.Save:
+                    // TODO: save the document here
+                case MessageDialog.Discard:
+                    Qt.quit()
+                    break;
+                case MessageDialog.Cancel:
+                    break;
+            }
+        }
+    }
+
+    FileDialog
+    {
+        id: projectOpenDialog
+        currentFolder: "~"
+        onAccepted:
+        {
+            if (mainWindow.loadProject(selectedFile))
+            {
+                // TODO: Change ui state and enter label editing mode stuff
+            }
+            else
+            {
+                projectOpenFailMessage.open()
+            }
+        }
+        nameFilters: ["Project files (*.clp)"]
+    }
+
     menuBar: MenuBar
     {
         Menu
         {
             title: qsTr("&File")
             Action { text: qsTr("New Project") }
-            Action { text: qsTr("Open Project") }
+            Action
+            {
+                text: qsTr("Open Project")
+                onTriggered:
+                {
+                    projectOpenDialog.open()
+                }
+            }
             Action { text: qsTr("Save Project") }
             Action { text: qsTr("Close Project") }
             MenuSeparator { }
-            Action { text: qsTr("&Quit") }
+            Action
+            {
+                text: qsTr("&Quit")
+                onTriggered: unsavedChangesMessage.open()
+            }
         }
         Menu
         {
@@ -30,42 +97,34 @@ ApplicationWindow {
         }
     }
 
-    SplitView
+    ColumnLayout
     {
         anchors.fill: parent
 
-        ScrollView
+        TabBar
         {
-            id: fileView
-            height: parent.height
+            id: projectTabs
+            Layout.preferredWidth: parent.width
 
-            ScrollBar.horizontal.policy: ScrollBar.AlwaysOn
+            TabButton
+            {
+                text: qsTr("Home")
+            }
 
-            Column {
-                Label {
-                    text: "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-                    font.pixelSize: 200
-                }
+            TabButton
+            {
+                text: qsTr("Test Project")
             }
         }
 
-        ScrollView
+        StackLayout
         {
-            id: fileList
-            height: parent.height
-            SplitView.minimumWidth: 200
+            Layout.preferredWidth: parent.width
+            Layout.fillHeight: true
+            currentIndex: projectTabs.currentIndex
 
-            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-
-            Column
-            {
-                width: fileList.width
-                Button
-                {
-                    width: fileList.width
-                    text: "File List Test Button"
-                }
-            }
+            HomeTab { }
+            ProjectTab { }
         }
     }
 }

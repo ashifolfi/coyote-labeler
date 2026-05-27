@@ -2,6 +2,7 @@ use cxx_qt::casting::Upcast;
 use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QQmlEngine, QUrl};
 use std::pin::Pin;
 
+pub mod main_window;
 mod data;
 
 fn main()
