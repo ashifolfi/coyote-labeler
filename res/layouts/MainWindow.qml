@@ -20,6 +20,8 @@ ApplicationWindow {
 
     }
 
+    property alias projectOpenDialog: projectOpenDialog
+
     MessageDialog
     {
         id: projectOpenFailMessage
@@ -51,7 +53,6 @@ ApplicationWindow {
     FileDialog
     {
         id: projectOpenDialog
-        currentFolder: "~"
         onAccepted:
         {
             if (mainWindow.loadProject(selectedFile))

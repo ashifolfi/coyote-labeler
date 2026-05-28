@@ -39,6 +39,10 @@ Item
             {
                 Layout.preferredWidth: parent.width
                 text: qsTr("Open Project")
+                onPressed: function()
+                {
+                    ApplicationWindow.window.projectOpenDialog.open()
+                }
             }
 
             Button
