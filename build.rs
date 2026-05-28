@@ -5,7 +5,8 @@ fn main() {
         .qml_files([
             "res/layouts/MainWindow.qml",
             "res/layouts/MainPages/HomeTab.qml",
-            "res/layouts/MainPages/ProjectTab.qml"
+            "res/layouts/MainPages/ProjectTab.qml",
+            "res/layouts/TestData/TestItemList.qml"
         ])
     )
     // Link Qt's Network library

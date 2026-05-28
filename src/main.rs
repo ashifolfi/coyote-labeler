@@ -1,5 +1,5 @@
 use cxx_qt::casting::Upcast;
-use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QQmlEngine, QUrl};
+use cxx_qt_lib::{QGuiApplication, QQmlApplicationEngine, QQmlEngine, QQuickStyle, QUrl, QString};
 use std::pin::Pin;
 
 pub mod main_window;
@@ -9,6 +9,9 @@ fn main()
 {
     let mut app = QGuiApplication::new();
     let mut engine = QQmlApplicationEngine::new();
+
+    let style_name: QString = QString::from("Fusion");
+    QQuickStyle::set_style(&style_name);
 
     if let Some(engine) = engine.as_mut()
     {

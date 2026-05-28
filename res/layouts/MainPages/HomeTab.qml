@@ -1,6 +1,5 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Window 2.21
+import QtQuick
+import QtQuick.Controls
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
@@ -8,9 +7,6 @@ import dog.eden.coyote_labeler 1.0
 
 Item
 {
-    Layout.fillWidth: true
-    Layout.fillHeight: true
-
     RowLayout
     {
         anchors.centerIn: parent

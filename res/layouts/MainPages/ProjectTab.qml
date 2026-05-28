@@ -1,15 +1,13 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Window 2.21
-import QtQuick.Dialogs
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
 
 import dog.eden.coyote_labeler 1.0
 
+import "../TestData"
+
 Item
 {
-    Layout.fillWidth: true
-    Layout.fillHeight: true
-
     SplitView
     {
         anchors.fill: parent
@@ -29,23 +27,36 @@ Item
             }
         }
 
-        ScrollView
+        ColumnLayout
         {
-            id: fileList
-            height: parent.height
             SplitView.minimumWidth: 200
 
-            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-
-            Column
+            ComboBox
             {
-                width: fileList.width
-                Button
+                model: ["WaveFileEntry"]
+                Layout.fillWidth: true
+            }
+
+            ScrollView
+            {
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+
+                ListView
                 {
-                    width: fileList.width
-                    text: "File List Test Button"
+                    id: labelList
+                    width: parent.width
+                    model: TestItemList {}
+                    delegate: Button
+                    {
+                        required property string name
+                        text: name
+                        width: labelList.width
+                    }
                 }
             }
         }
+
     }
 }

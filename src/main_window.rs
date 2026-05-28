@@ -11,8 +11,6 @@ pub mod qobject
     {
         #[qobject]
         #[qml_element]
-        #[qproperty(QString, current_project_path)]
-        #[qproperty(bool, is_project_modified)]
         #[namespace = "CoyoteLabeler"]
         type MainWindow = super::MainWindowRust;
 
@@ -30,9 +28,6 @@ use crate::data;
 #[derive(Default)]
 pub struct MainWindowRust
 {
-    current_project_path: QString,
-    is_project_modified: bool,
-    project_data: data::project::ProjectFile
 }
 
 impl qobject::MainWindow
@@ -41,13 +36,12 @@ impl qobject::MainWindow
     {
         println!("Loading project at path: {project_path}");
 
-        self.set_current_project_path(project_path.clone());
         // TODO: probably using QFile would be better here?
         let trimmed_path = project_path.to_string().trim_start_matches("file://");
 
         if let Ok(project_data) = serde_json5::from_str::<data::project::ProjectFile>("")
         {
-            // TODO: store project_data within MainWindow
+            // TODO: create a new project tab containing the ProjectData structure value
             return true;
         }
         else

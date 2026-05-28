@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Window 2.21
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
 import QtQuick.Dialogs
 import QtQuick.Layouts
 
@@ -109,11 +109,13 @@ ApplicationWindow {
 
             TabButton
             {
+                height: 30
                 text: qsTr("Home")
             }
 
             TabButton
             {
+                height: 30
                 text: qsTr("Test Project")
             }
         }
