@@ -5,40 +5,46 @@ import QtQuick.Dialogs
 
 import dog.eden.coyote_labeler 1.0
 
-SplitView
+Item
 {
-    anchors.fill: parent
+    Layout.fillWidth: true
+    Layout.fillHeight: true
 
-    ScrollView
+    SplitView
     {
-        id: fileView
-        height: parent.height
+        anchors.fill: parent
 
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOn
+        ScrollView
+        {
+            id: fileView
+            height: parent.height
 
-        Column {
-            Label {
-                text: "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
-                font.pixelSize: 200
+            ScrollBar.horizontal.policy: ScrollBar.AlwaysOn
+
+            Column {
+                Label {
+                    text: "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
+                    font.pixelSize: 200
+                }
             }
         }
-    }
 
-    ScrollView
-    {
-        id: fileList
-        height: parent.height
-        SplitView.minimumWidth: 200
-
-        ScrollBar.vertical.policy: ScrollBar.AlwaysOn
-
-        Column
+        ScrollView
         {
-            width: fileList.width
-            Button
+            id: fileList
+            height: parent.height
+            SplitView.minimumWidth: 200
+
+            ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+
+            Column
             {
                 width: fileList.width
-                text: "File List Test Button"
+                Button
+                {
+                    width: fileList.width
+                    text: "File List Test Button"
+                }
             }
         }
     }
