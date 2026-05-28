@@ -45,6 +45,10 @@ Item
             {
                 Layout.preferredWidth: parent.width
                 text: qsTr("Support Me")
+                onPressed: function()
+                {
+                    Qt.openUrlExternally("https://ko-fi.com/edens_garden")
+                }
             }
         }
 
